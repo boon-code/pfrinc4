@@ -1,5 +1,5 @@
 
-include userconfig.mk
+include cfg/userconfig.mk
 
 PACKET=bin/$(NAME).sh
 MAIN=src/$(NAME).py
