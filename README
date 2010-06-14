@@ -1,0 +1,13 @@
+pfserver helps you download from rapidshare. It's intend to be used as server, but since it's modular, you could write a downloader by using the pfmanager module
+
+important:
+	you need to create a userconfig file and define some constants:
+	NAME= #project name, main file to execute without .py
+	INCLUDE= files which should be included in packet
+	ARGS= arguments which should be passed to main-file
+
+	typical config file looks like this:
+	from /full/path/to/dir-where-to-save-the-rar-files
+	to /full/path/to/dir-where-to-extract-the-rar-files
+	pwd possible-passwords
+	cfg /full/path/to/config-directory
