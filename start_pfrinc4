@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /home/nimmer/code/pfrinc4/src
+
+./pfserver.py ../cfg/config.txt 2> ../cfg/err.log 1>../cfg/out.log
+
