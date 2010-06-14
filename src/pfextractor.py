@@ -9,6 +9,7 @@ class extractor(object):
         self._to = dest
         self._from = source
         self._pwd = pwds
+        self.status = None
     
     def extract(self, filename, proc=None):
         "Starts extractor-utility and extracts packets."
@@ -18,6 +19,8 @@ class extractor(object):
         for pwd in self._pwd:
             unr = unrar.UnrarSpoon(file_path, self._to, pwd)
             status = unr.update_loop(callback=proc)
+            
+            self.status = status
             
             if status[unrar.STATUS_OK]:
                 return True

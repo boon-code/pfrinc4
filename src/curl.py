@@ -72,7 +72,7 @@ class CurlSpoon(forks.Spoon):
         if cookie is None:
             args = _mklist('curl', link, '-o', dest, *args)
         else:
-            args = _mklist('curl', link, -o, dest, '--cookie', '-',
+            args = _mklist('curl', link, '-o', dest, '--cookie', '-',
                             *args)
         
         self.start(args, in_data=cookie, use_stderr=True)

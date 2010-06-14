@@ -167,7 +167,7 @@ class pfserver(object):
                 data = buffer[0:pos].split(' ', 1)
                 if data[0] == 'add':
                     links = data[1].split(' ')
-                    links = pfutil.resolve_links(links)
+                    links = pfscan.resolve_links(links)
                     link_count = self._man.padd(links)
                     conn.sendall("added %d links" % link_count)
                 elif data[0] == 'start':

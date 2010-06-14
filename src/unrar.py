@@ -12,7 +12,7 @@ STATUS_PERCENT = 'percent'
 STATUS_OK = 'success'
 STATUS_MSG = 'status'
 
-DEFAULT_WAITTIME = 1
+DEFAULT_WAITTIME = 0.01
 
 def _mklist(*elements):
     return elements
@@ -45,7 +45,7 @@ class UnrarSpoon(forks.Spoon):
         """
         
         forks.Spoon.__init__(self)
-        self._status[STATUS_MSG] = 'startup'
+        self._status[STATUS_MSG] = 'extracting'
         self._status[STATUS_PERCENT] = 0
         self._status[STATUS_OK] = False
         

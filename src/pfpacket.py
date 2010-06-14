@@ -5,9 +5,9 @@ import re
 import os
 import time
 
+import forks
 import pfextractor
 import curl
-import forks
 
 UPDATE_INTERVAL = 0.5
 FILENAME_RE = re.compile(".*/([^/]*)")
@@ -187,14 +187,14 @@ class pf_packet(object):
                 dl = curl.CurlSpoon(link, dest, args=curl_param,
                     cookie=cookie)
                 
-                dl.update_loop(callback=self._update)
+                status = dl.update_loop(callback=self._update)
                 
                 if self._has_exceeded(dest):
                     self._status = ERROR
                     self._msg = "Maybe exceeded the daily limit..."
                     return False
                 
-                if status[curl.STATUS_RETURN] == 0:
+                if status[forks.RETURN_CODE] == 0:
                     self._successful_links.append(link)
                 
                 self._dl_count += 1

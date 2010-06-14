@@ -141,7 +141,7 @@ class info_server(object):
         
         try:
             sock.bind(('', port))
-        except:
+        except socket.error:
             self._log.warning("socket.bind failed (retrying once) %s" % 
                 traceback.format_exc())
             time.sleep(BIND_WAITTIME)
