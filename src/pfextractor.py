@@ -22,7 +22,11 @@ class extractor(object):
             
             self.status = status
             
+            
             if status[unrar.STATUS_OK]:
+                if not (proc is None):
+                    proc(status)
+                
                 return True
         
         return False

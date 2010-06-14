@@ -1,12 +1,13 @@
+import os
 import re
 import curl
 
 SP_LINK = re.compile('http://([^\\",^ ]+)')
 #prev = "http://([^\",^\n^/,^\\s,^<,^>]+)([^\",^\\s,^\n,^<,^>]*)"
-RSDL_LINK_STR = ("http://(?P<src>[^ ,^.]+)[.]{1}rapidshare[.]{1}com" + 
+RSDL_LINK_STR = ("http://(?P<srv>[^ ,^.]+)[.]{1}rapidshare[.]{1}com" + 
     "/files/(?P<link>[^ ,^\\\"]+)")
 RSDL_BUILD_STR = "http://%(srv)s.rapidshare.com/files/%(link)s"
-RSDL_LINK_RE = re.compile(RS_LINK_STR)
+RSDL_LINK_RE = re.compile(RSDL_LINK_STR)
 
 def _resolve_link(link):
     
@@ -15,7 +16,10 @@ def _resolve_link(link):
     if result is None:
         return None
     else:
-        return RSDL_BUILD_STR % result.groupdict()
+        group = result.groupdict()
+        path = os.path.split(group['link'])
+        group['link'] = os.path.join(path[0], 'dl', path[1])
+        return RSDL_BUILD_STR % group
 
 
 def resolve_links(links):
@@ -27,6 +31,8 @@ def resolve_links(links):
         
         if not (result is None):
             out.append(result)
+    
+    return out
 
 
 def scanlinks(data):

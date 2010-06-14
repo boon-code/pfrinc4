@@ -12,6 +12,7 @@ import pfutil
 import pfpacket
 import pfinfo
 import pfutil
+import pfscan
 import pfmanager
 import pfdetainer
 
