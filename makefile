@@ -3,6 +3,7 @@ include cfg/userconfig.mk
 
 PACKET=bin/$(NAME).sh
 MAIN=src/$(NAME).py
+DISTNAME=$(NAME)_dist.tgz
 SRCS=$(wildcard src/*.py)
 OBJS=$(SRCS:.py=.notabs)
 
@@ -16,6 +17,7 @@ all: $(PACKET)
 
 git-clean: clean
 #	rm -f *~ */*~
+	rm -f $(DISTNAME)
 	@find . -name \*~
 	find . -name \*~ -exec rm "{}" ";"
 	@find . -name \*.pyc
@@ -33,6 +35,9 @@ clean:
 
 run:
 	python $(MAIN) $(ARGS)
+
+dist: $(PACKET)
+	tar cz --directory=bin/ $(NAME).sh >$(DISTNAME)
 
 packet: $(PACKET)
 	sh $(PACKET)
