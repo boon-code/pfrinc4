@@ -70,23 +70,29 @@ class pf_packet(object):
     def status(self):
         "Get status line message."
         
+        fields = []
+        
         self._lock.acquire()
         try:
-            text = self._name + " {files: %d/%d " % (self._dl_count, 
-                                                     len(self._links))
+            fields.append(self._name)
+            fields.append("files: %d/%d" % (self._dl_count, 
+                                            len(self._links)))
             if self._repeated:
-                text += ", vielleicht wurde die Datei schonmal runtergeladen?"
+                fields.append("info: vielleicht wurde die" + 
+                    " Datei schonmal runtergeladen?")
+            
             if self._msg:
-                text += (", %s " % self._msg)
-            text += (", status: %s}" % self._status)
+                fields.append(self._msg)
+            
+            fields.append("status: %s" % self._status)
             
             if not self._run:
-                text += " killed packet must be reset..."
+                fields.append("info: killed packet must be reset!")
             
         finally:
             self._lock.release()
         
-        return text
+        return ", ".join(fields)
     
     def set_waiting(self):
         "Tries to set status to wait."
@@ -214,7 +220,9 @@ class pf_packet(object):
         
         self._lock.acquire()
         try:
-            self._msg = str(status)
+            self._msg = ", ".join(
+                ["%s: %s" % (k,v) for (k,v) in status.iteritems()])
+            
             if not self._run:
                 self._status = KILLED
                 raise forks.KillForkException()
